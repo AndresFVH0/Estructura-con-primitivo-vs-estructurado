@@ -1,0 +1,96 @@
+#include <iostream>
+using namespace std;
+
+// Constante global o definida antes de usarla
+const int NUM_ESTUDIANTES_INICIAL = 5;
+
+// --- FUNCIONES AUXILIARES ---
+
+// 1. Muestra los elementos del arreglo
+void mostrar(float notas[], int n) {
+    cout << "Recorrido -> ";
+    for(int i = 0; i < n; i++) {
+        cout << notas[i];
+        if(i < n - 1) cout << ", ";
+    }
+    cout << endl;
+}
+
+// 2. Busca una nota en el arreglo
+int buscar(float notas[], int n, float valor) {
+    int comparaciones = 0;
+    for(int i = 0; i < n; i++) {
+        comparaciones++;
+        if(notas[i] == valor) {
+            cout << "Encontrada en la posicion " << i
+                 << " (" << comparaciones << " comparacion(es))" << endl;
+            return i;
+        }
+    }
+    cout << "No encontrada tras " << comparaciones << " comparaciones" << endl;
+    return -1;
+}
+
+// 3. Inserta una nueva nota al final
+void insertarAlFinal(float notas[], int& n, float nuevoValor) {
+    notas[n] = nuevoValor;
+    n++;
+}
+
+// 4. Elimina una nota dada su posición
+void eliminarPorPosicion(float notas[], int& n, int pos) {
+    if (pos < 0 || pos >= n) return;
+    for(int i = pos; i < n - 1; i++) {
+        notas[i] = notas[i + 1];
+    }
+    n--;
+}
+
+// --- SECCIONES PRINCIPALES ---
+
+void seccionprimitivo() {
+    cout << "\n=======1. TIPOS DE DATOS PRIMITIVOS=====" << endl;
+
+    float notaestudiante1 = 4.5;
+    float notaestudiante2 = 3.8;
+    float notaestudiante3 = 4.2;
+    char grupo = 'A';
+    bool cursoAprobado = true;
+
+    cout << "Nota estudiante 1: " << notaestudiante1 << endl;
+    cout << "Nota estudiante 2: " << notaestudiante2 << endl;
+    cout << "Nota estudiante 3: " << notaestudiante3 << endl;
+    cout << "Grupo: " << grupo << " / Aprobado: " << cursoAprobado << endl;
+}
+
+void seccionEstructurados() {
+    cout << "\n====2. TIPO DE DATO ESTRUCTURADO (ARREGLO)====" << endl;
+
+    float notas[10] = {4.5, 3.8, 4.2, 2.9, 3.5};
+    int n = NUM_ESTUDIANTES_INICIAL;
+
+    cout << "\n--Recorrido--" << endl;
+    mostrar(notas, n);
+
+    cout << "\n--Busqueda de la nota 4.2--" << endl;
+    buscar(notas, n, 4.2);
+
+    cout << "\n--Insercion de la nota 3.9--" << endl;
+    insertarAlFinal(notas, n, 3.9);
+    mostrar(notas, n);
+
+    cout << "\n--Eliminacion de la nota en la posicion 1--" << endl;
+    eliminarPorPosicion(notas, n, 1);
+    mostrar(notas, n);
+
+    cout << "\n---Nocion intuitiva de eficiencia--" << endl;
+    cout << "Acceso directo a notas[0] = " << notas[0]
+         << " -> 1 sola operacion (acceso por indice)" << endl;
+    cout << "Buscar un valor recorre, en el peor caso, TODOS los elementos" << endl;
+}
+
+int main() {
+    seccionprimitivo();
+    seccionEstructurados();
+    return 0;
+}
